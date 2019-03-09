@@ -63,4 +63,14 @@ router.put("/:id", async ({ body: action, params: { id } }, res) => {
   }
 });
 
+router.delete("/:id", async ({ params: { id } }, res) => {
+  try {
+    const count = await db.remove(id);
+    if (count) res.status(200).json({ message: "Action Delete" });
+    else res.status(404).json({ error: "Cannot Delete Nonexistent Action" });
+  } catch (e) {
+    res.status(500).json({ error: "Could Not Delete Action" });
+  }
+});
+
 module.exports = router;
