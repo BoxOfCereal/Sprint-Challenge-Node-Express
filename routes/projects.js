@@ -40,4 +40,27 @@ router.get("/:id", async ({ params: { id } }, res) => {
   }
 });
 
+router.put("/:id", async ({ body: project, params: { id } }, res) => {
+  const { description, name, completed } = project;
+  try {
+    if (!description || !name || completed === undefined) {
+      res.status(400).json({
+        errorMessage:
+          "Please provide a description, name, and completed status for project."
+      });
+    } else {
+      //returns number of projects updated
+      const updated = await db.update(id, project);
+      if (!updated) {
+        res.status(500).json({ error: "Could Not Update The project" });
+      } else {
+        const project = await db.get(id);
+        res.status(201).json(project);
+      }
+    }
+  } catch (e) {
+    res.status(500).json({ error: "Could Not Update the project" });
+  }
+});
+
 module.exports = router;
