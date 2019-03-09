@@ -13,4 +13,21 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  const { description, name, completed } = req.body;
+  try {
+    if (!description || !name || completed === undefined) {
+      res.status(400).json({
+        error:
+          "Please provide a description, name, and completed status for project."
+      });
+    } else {
+      const project = await db.insert(req.body);
+      res.status(201).json(project);
+    }
+  } catch (e) {
+    res.status(500).json({ error: "Could Not Create the Project" });
+  }
+});
+
 module.exports = router;
