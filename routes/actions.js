@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
       res.status(201).json(action);
     }
   } catch (e) {
-    res.status(500).json({ error: "Could Not Create the User" });
+    res.status(500).json({ error: "Could Not Create the Action" });
   }
 });
 
