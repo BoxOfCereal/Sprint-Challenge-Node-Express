@@ -40,4 +40,27 @@ router.get("/:id", async ({ params: { id } }, res) => {
   }
 });
 
+router.put("/:id", async ({ body: action, params: { id } }, res) => {
+  const { description, notes, completed, project_id } = action;
+  try {
+    if (!description || !notes || completed === undefined || !project_id) {
+      res.status(400).json({
+        errorMessage:
+          "Please provide a description, notes, and completed status for action."
+      });
+    } else {
+      //returns number of actions updated
+      const updated = await db.update(id, action);
+      if (!updated) {
+        res.status(500).json({ error: "Could Not Update The Action" });
+      } else {
+        const action = await db.get(id);
+        res.status(201).json(action);
+      }
+    }
+  } catch (e) {
+    res.status(500).json({ error: "Could Not Update the Action" });
+  }
+});
+
 module.exports = router;
