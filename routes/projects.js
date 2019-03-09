@@ -73,4 +73,15 @@ router.delete("/:id", async ({ params: { id } }, res) => {
   }
 });
 
+router.get("/:id/actions", async ({ params: { id } }, res) => {
+  try {
+    const projectsActions = await db.getProjectActions(id);
+    res.status(200).json(projectsActions);
+  } catch (e) {
+    res.status(500).json({
+      error: "The projectsActions information could not be retrieved."
+    });
+  }
+});
+
 module.exports = router;
