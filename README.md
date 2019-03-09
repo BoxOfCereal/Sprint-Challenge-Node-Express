@@ -44,7 +44,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
 - [ ] How can we partition our application into sub-applications?
       We can use expresses router function to split our application into sub applications.
-      We can then export this and then use it inside our server
+      We can then export this and then use it inside our server~
 
 ## Project Setup
 
