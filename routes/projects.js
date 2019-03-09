@@ -32,11 +32,11 @@ router.post("/", async (req, res) => {
 
 router.get("/:id", async ({ params: { id } }, res) => {
   try {
-    const action = await db.get(id);
-    if (action) res.status(200).json(action);
-    else res.status(404).json({ error: "Action Does Not Exist" });
+    const project = await db.get(id);
+    if (project) res.status(200).json(project);
+    else res.status(404).json({ error: "project Does Not Exist" });
   } catch (e) {
-    res.status(500).json({ error: "Could Not Get Action" });
+    res.status(500).json({ error: "Could Not Get project" });
   }
 });
 
